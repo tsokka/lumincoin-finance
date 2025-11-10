@@ -1,0 +1,36 @@
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+.nav-link[data-bs-toggle="collapse"] i {
+    transition: transform 0.3s ease;
+}
+
+.nav-link[data-bs-toggle="collapse"]:not(.collapsed) i {
+    transform: rotate(90deg);
+}
+
+.logo-text {
+    letter-spacing: 1.2em;
+}
+
+
+.fs-7 {
+    font-size: 15px !important;
+}
+
+.fs-8 {
+    font-size: 14px !important;
+}
+
+.fs-9 {
+    font-size: 12px !important;
+}
+
+.fs-10 {
+    font-size: 7px !important;
+}
+
+.text-dark-blue {
+    color: #052C65 !important;
+}
