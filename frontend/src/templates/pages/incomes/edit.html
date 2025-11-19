@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumincoin Finance</title>
+    <title>Вход - Lumincoin Finance</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,9 +12,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
 
-    <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../../node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../../node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../../styles/styles.css">
 </head>
 
 <body>
@@ -24,11 +24,11 @@
     <i class="bi bi-list fs-1"></i>
 </button>
 
-<div class="d-flex vh-100">
-    <aside class="header offcanvas offcanvas-start d-md-flex flex-column flex-shrink-0 border-end overflow-auto vh-100"
-           id="sidebar"
-           tabindex="-1"
-           style="width: 219px; min-height: 100vh;">
+<div class="d-flex">
+    <div class="header offcanvas offcanvas-start d-flex flex-column flex-shrink-0 border-end"
+         id="sidebar"
+         tabindex="-1"
+         style="width: 219px; min-height: 100vh;">
         <a href="/"
            class="logo pt-5 d-flex flex-column align-items-center mb-md-0 pb-1 link-body-emphasis text-decoration-none text-dark-blue">
             <svg width="101" height="28" viewBox="0 0 101 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +42,7 @@
 
         <ul class="nav nav-pills flex-column mb-auto d-flex h-100 pt-5 px-3 pb-1 fs-8 text-dark-blue">
             <li class="nav-item">
-                <a href="#" class="nav-link d-flex active py-2 pe-1 ps-3 gap-2" aria-current="page">
+                <a href="#" class="nav-link d-flex link-body-emphasis py-2 pe-1 ps-3 gap-2 text-dark-blue">
                     <i class="bi bi-house"></i>
                     Главная
                 </a>
@@ -54,19 +54,20 @@
                 </a>
             </li>
             <li class="nav-item mb-1">
-                <button class="nav-link link-body-emphasis d-flex justify-content-between align-items-center rounded-0 border-0 collapsed w-100 text-start py-2 px-3 text-dark-blue"
+                <button class="nav-link active d-flex justify-content-between align-items-center w-100 text-start py-2 px-3 rounded-top rounded-0"
                         data-bs-toggle="collapse"
                         data-bs-target="#categories-collapse"
-                        aria-expanded="false">
+                        aria-expanded="true">
                     Категории
                     <i class="bi bi-chevron-right"></i>
                 </button>
-                <div class="collapse" id="categories-collapse">
-                    <ul class="list-unstyled ps-3 mt-2">
+                <div class="collapse show border border-primary border-top-0 rounded-bottom" id="categories-collapse">
+                    <ul class="list-unstyled">
                         <li><a href="#"
-                               class="nav-link d-flex link-body-emphasis py-2 pe-1 ps-3 text-dark-blue">Доходы</a></li>
+                               class="nav-link d-flex active rounded-0 py-2 pe-1 ps-3">Доходы</a></li>
                         <li><a href="#"
-                               class="nav-link d-flex link-body-emphasis py-2 pe-1 ps-3 text-dark-blue">Расходы</a></li>
+                               class="nav-link d-flex py-2 pe-1 ps-3 text-primary rounded-0 rounded-bottom">Расходы</a>
+                        </li>
                     </ul>
                 </div>
             </li>
@@ -95,161 +96,33 @@
                 <li><a class="dropdown-item" href="#">Выйти</a></li>
             </ul>
         </div>
-    </aside>
+    </div>
 
-    <div class="flex-grow-1 px-3 pb-5 p-md-5 ms-md-2 overflow-auto">
-        <h1 class="text-dark-blue pt-md-5 pb-md-3 py-lg-5 mt-md-1 mb-md-2 text-center text-lg-start">Главная</h1>
+    <div class="flex-grow-1 px-2 p-md-5 ms-2 me-2 me-md-3">
+        <h1 class="text-dark-blue py-0 py-md-5 mt-1 mb-2 text-center text-lg-start">
+            Редактирование категории доходов
+        </h1>
 
-        <div class="mt-3 mt-md-0 mb-xxl-5 pb-md-5 d-xl-flex text-center">
-            <input type="radio" class="btn-check" name="dateFilter" id="todayBtn" checked>
-            <label class="btn btn-outline-secondary mx-1 ms-xxl-0 me-xxl-3 mb-3 mb-xxl-0 fw-medium" for="todayBtn"
-                   style="width: 100px; height: 37px">Сегодня</label>
-
-            <input type="radio" class="btn-check" name="dateFilter" id="weekBtn">
-            <label class="btn btn-outline-secondary mx-1 me-xxl-3 mb-3 mb-xxl-0 fw-medium" for="weekBtn"
-                   style="width: 100px; height: 37px">Неделя</label>
-
-            <input type="radio" class="btn-check" name="dateFilter" id="monthBtn">
-            <label class="btn btn-outline-secondary mx-1 me-xxl-3 mb-3 mb-xxl-0 fw-medium" for="monthBtn"
-                   style="width: 100px; height: 37px">Месяц</label>
-
-            <input type="radio" class="btn-check" name="dateFilter" id="yearBtn">
-            <label class="btn btn-outline-secondary mx-1 me-xxl-3 mb-3 mb-xxl-0 fw-medium" for="yearBtn"
-                   style="width: 100px; height: 37px">Год</label>
-
-            <input type="radio" class="btn-check" name="dateFilter" id="allBtn">
-            <label class="btn btn-outline-secondary mx-1 me-xxl-3 mb-3 mb-xxl-0 fw-medium" for="allBtn"
-                   style="width: 100px; height: 37px">Все</label>
-
-            <input type="radio" class="btn-check" name="dateFilter" id="intervalBtn">
-            <label class="btn btn-outline-secondary mx-1 me-xxl-0 mb-3 mb-xxl-0 fw-medium" for="intervalBtn"
-                   style="width: 100px; height: 37px">Интервал</label>
-
-            <div>
-                <span class="text-black fw-medium ps-3">с</span>
-                <button type="button" class="btn btn-link text-secondary fw-medium px-3">Дата</button>
-                <input type="date" id="dateFromInput" style="display: none;">
-
-                <span class="text-black fw-medium ps-2">по</span>
-                <button type="button" class="btn btn-link text-secondary fw-medium ps-3">Дата</button>
-                <input type="date" id="dateToInput" style="display: none;">
-            </div>
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 mb-4">
+            <input
+                    type="text"
+                    class="form-control fs-7"
+                    id="categoryName">
         </div>
 
-        <div class="d-flex flex-column charts-wrapper pt-3 pt-md-0 align-items-center align-items-custom-stretch">
-            <div class="row pt-5">
-                <div class="col-md-6">
-                    <h5 class="text-dark-blue mb-0 pb-3 text-center fs-3 text-dark-purple">Доходы</h5>
-                </div>
-                <div class="col-md-6 expense-title">
-                    <h5 class="text-dark-blue mb-0 pb-3 text-center fs-3 text-dark-purple">Расходы</h5>
-                </div>
-            </div>
-
-            <div class="row pb-5">
-                <div class="col-md-6 border-end d-flex justify-content-center px-0 income-chart pb-4 pb-md-0">
-                    <canvas id="incomeChart" width="437" height="414"></canvas>
-                </div>
-                <div class="col-md-6 d-flex justify-content-center px-0 expense-chart">
-                    <canvas id="expenseChart" width="437" height="414"></canvas>
-                </div>
-            </div>
+        <div class="d-flex gap-2">
+            <button class="btn btn-success">
+                Сохранить
+            </button>
+            <button class="btn btn-danger">
+                Отмена
+            </button>
         </div>
     </div>
+
 </div>
 
-<script src="../../../node_modules/chart.js/dist/chart.umd.min.js"></script>
-<script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    const incomeCtx = document.getElementById('incomeChart').getContext('2d');
-    const incomeChart = new Chart(incomeCtx, {
-        type: 'pie',
-        data: {
-            labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
-            datasets: [{
-                label: 'Доходы',
-                data: [30, 40, 20, 15, 10],
-                backgroundColor: [
-                    '#DC3545',
-                    '#FD7E14',
-                    '#FFC107',
-                    '#20C997',
-                    '#0D6EFD'
-                ]
-            }]
-        },
-        options: {
-            responsive: false,
-            plugins: {
-                legend: {
-                    position: 'top',
-                    labels: {
-                        boxWidth: 35,
-                        color: '#000',
-                        font: {
-                            weight: '500'
-                        }
-                    }
-                }
-            }
-        },
-        plugins: [{
-            id: 'legendMargin',
-            beforeInit(chart) {
-                const originalFit = chart.legend.fit;
-                chart.legend.fit = function fit() {
-                    originalFit.bind(chart.legend)();
-                    this.height += 30;
-                };
-            }
-        }]
-    });
-
-    const expenseCtx = document.getElementById('expenseChart').getContext('2d');
-    const expenseChart = new Chart(expenseCtx, {
-        type: 'pie',
-        data: {
-            labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
-            datasets: [{
-                label: 'Расходы',
-                data: [25, 30, 35, 20, 15],
-                backgroundColor: [
-                    '#DC3545',
-                    '#FD7E14',
-                    '#FFC107',
-                    '#20C997',
-                    '#0D6EFD'
-                ]
-            }]
-        },
-        options: {
-            responsive: false,
-            plugins: {
-                legend: {
-                    position: 'top',
-                    labels: {
-                        boxWidth: 35,
-                        color: '#000',
-                        font: {
-                            weight: '500'
-                        }
-                    }
-                }
-            }
-        },
-        plugins: [{
-            id: 'legendMargin',
-            beforeInit(chart) {
-                const originalFit = chart.legend.fit;
-                chart.legend.fit = function fit() {
-                    originalFit.bind(chart.legend)();
-                    this.height += 30;
-                };
-            }
-        }]
-    });
-</script>
+<script src="../../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
