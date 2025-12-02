@@ -1,4 +1,4 @@
-// import config from "../config/config";
+import config from "../config/config";
 
 export class AuthUtils {
     static accessTokenKey = 'accessToken';
@@ -29,32 +29,31 @@ export class AuthUtils {
         }
     }
 
-    // static async updateRefreshToken() {
-    //     let result = false;
-    //     const refreshToken = this.getAuthInfo(this.refreshTokenKey);
-    //     if (refreshToken) {
-    //         const response = await fetch(config.api + '/refresh', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-type': 'application/json',
-    //                 'Accept': 'application/json',
-    //                 // 'authorization': 'token'
-    //             },
-    //             body: JSON.stringify({refreshToken: refreshToken})
-    //         });
-    //         if (response && response.status === 200) {
-    //             const tokens = await response.json();
-    //             if (tokens && !tokens.error) {
-    //                 this.setAuthInfo(tokens.accessToken, tokens.refreshToken);
-    //                 result = true;
-    //             }
-    //         }
-    //     }
-    //
-    //     if (!result) {
-    //         this.removeAuthInfo();
-    //     }
-    //
-    //     return result;
-    // }
+    static async updateRefreshToken() {
+        let result = false;
+        const refreshToken = this.getAuthInfo(this.refreshTokenKey);
+        if (refreshToken) {
+            const response = await fetch(config.api + '/refresh', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({refreshToken: refreshToken})
+            });
+            if (response && response.status === 200) {
+                const tokens = await response.json();
+                if (tokens && !tokens.error) {
+                    this.setAuthInfo(tokens.tokens.accessToken, tokens.tokens.refreshToken);
+                    result = true;
+                }
+            }
+        }
+
+        if (!result) {
+            this.removeAuthInfo();
+        }
+
+        return result;
+    }
 }

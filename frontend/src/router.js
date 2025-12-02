@@ -11,6 +11,7 @@ import {ExpensesEdit} from "./components/expenses/expenses-edit";
 import {OperationsList} from "./components/operations/operations-list";
 import {OperationsEdit} from "./components/operations/operations-edit";
 import {OperationsCreate} from "./components/operations/operations-create";
+import {AuthUtils} from "./utils/auth-utils";
 
 export class Router {
     constructor() {
@@ -198,6 +199,16 @@ export class Router {
             //     }
             // }
 
+            if (newRoute.useLayout) {
+                const accessToken = AuthUtils.getAuthInfo(AuthUtils.accessTokenKey);
+
+                if (!accessToken) {
+                    history.pushState({}, '', '/login');
+                    await this.activateRoute();
+                    return;
+                }
+            }
+
             if (newRoute.title) {
                 this.titlePageElement.innerText = newRoute.title + ' | Lumincoin Finance';
             }
@@ -207,7 +218,23 @@ export class Router {
                 if (newRoute.useLayout) {
                     this.contentPageElement.innerHTML = await fetch(newRoute.useLayout).then(response => response.text());
                     contentBlock = document.getElementById('content-layout');
+
+                    this.profileNameElement = document.getElementById('profile-name');
+
+                    if (!this.userName) {
+                        let userInfo = AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey);
+                        if (userInfo) {
+                            userInfo = JSON.parse(userInfo);
+                            if (userInfo.name && userInfo.lastName) {
+                                this.userName = userInfo.name + ' ' + userInfo.lastName;
+                            }
+                        }
+                    }
+                    this.profileNameElement.innerText = this.userName;
+
+                    this.activateMenuItem(newRoute);
                 }
+
                 contentBlock.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
             }
 
@@ -218,6 +245,61 @@ export class Router {
             console.log('No route found');
             history.pushState({}, '', '/');
             await this.activateRoute();
+        }
+    }
+
+    activateMenuItem(route) {
+        document.querySelectorAll('.nav-link').forEach(item => {
+            item.classList.remove('active');
+        });
+
+        const categoriesBtn = document.getElementById('category');
+        const categoriesCollapse = document.getElementById('categories-collapse');
+
+        if (categoriesBtn) {
+            categoriesBtn.addEventListener('click', () => {
+                document.querySelectorAll('.nav-link').forEach(item => {
+                    if (item.id !== 'category') {
+                        item.classList.remove('active');
+                    }
+                });
+                categoriesBtn.classList.add('active');
+            });
+        }
+
+        if (route.route.includes('/incomes') || route.route.includes('/expenses')) {
+            if (categoriesBtn && categoriesCollapse) {
+                categoriesBtn.classList.add('active');
+                categoriesCollapse.classList.add('show');
+                categoriesBtn.setAttribute('aria-expanded', 'true');
+            }
+
+            document.querySelectorAll('.collapse .nav-link').forEach(item => {
+                const href = item.getAttribute('href');
+
+                if ((route.route.includes('/incomes') && href === '/incomes') ||
+                    (route.route.includes('/expenses') && href === '/expenses')) {
+                    item.classList.add('active');
+                }
+            });
+        } else {
+            if (categoriesBtn && categoriesCollapse) {
+                categoriesBtn.classList.remove('active');
+                categoriesCollapse.classList.remove('show');
+                categoriesBtn.setAttribute('aria-expanded', 'false');
+            }
+
+            document.querySelectorAll('.nav-link').forEach(item => {
+                const href = item.getAttribute('href');
+
+                if (item.id === 'category') {
+                    return;
+                }
+
+                if ((route.route === href) || (route.route === '/' && href === '/')) {
+                    item.classList.add('active');
+                }
+            });
         }
     }
 }
