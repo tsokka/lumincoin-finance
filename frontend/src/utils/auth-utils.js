@@ -44,7 +44,10 @@ export class AuthUtils {
             if (response && response.status === 200) {
                 const tokens = await response.json();
                 if (tokens && !tokens.error) {
-                    this.setAuthInfo(tokens.tokens.accessToken, tokens.tokens.refreshToken, tokens.userInfo);
+                    const existingUserInfo = this.getAuthInfo(this.userInfoTokenKey);
+                    const userInfo = existingUserInfo ? JSON.parse(existingUserInfo) : null;
+
+                    this.setAuthInfo(tokens.tokens.accessToken, tokens.tokens.refreshToken, userInfo);
                     result = true;
                 }
             }

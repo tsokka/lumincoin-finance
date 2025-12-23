@@ -4,14 +4,14 @@
     <div class="row gx-3 gy-3" id="records"></div>
 </div>
 
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="delete-modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body text-center p-4">
                 <p class="fw-medium mb-0 text-dark-purple fs-5">Вы действительно хотите удалить категорию? Связанные
                     доходы останутся без категории.</p>
                 <div class="d-flex gap-3 justify-content-center mt-3">
-                    <button type="button" class="btn btn-success px-3 py-2 fw-medium fs-8" data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-success px-3 py-2 fw-medium fs-8" data-bs-dismiss="modal" id="confirm-delete-btn">
                         Да, удалить
                     </button>
                     <button type="button" class="btn btn-danger px-3 py-2 fw-medium fs-8" data-bs-dismiss="modal">

@@ -12,6 +12,9 @@ import {OperationsList} from "./components/operations/operations-list";
 import {OperationsEdit} from "./components/operations/operations-edit";
 import {OperationsCreate} from "./components/operations/operations-create";
 import {AuthUtils} from "./utils/auth-utils";
+import {FileUtils} from "./utils/file-utils";
+import {HttpUtils} from "./utils/http-utils";
+import {ToastUtils} from "./utils/toast-utils";
 
 export class Router {
     constructor() {
@@ -30,7 +33,11 @@ export class Router {
                 },
                 scripts: [
                     'chart.umd.min.js',
-                    'chart.js',
+                    'flatpickr.min.js',
+                    'ru.js'
+                ],
+                styles: [
+                    'flatpickr.min.css',
                 ]
             },
             {
@@ -113,31 +120,52 @@ export class Router {
             },
             {
                 route: '/operations',
-                title: 'Расходы',
+                title: 'Операции',
                 filePathTemplate: '/templates/pages/operations/list.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
                     new OperationsList(this.openNewRoute.bind(this));
-                }
+                },
+                scripts: [
+                    'flatpickr.min.js',
+                    'ru.js'
+                ],
+                styles: [
+                    'flatpickr.min.css',
+                ]
             },
             {
                 route: '/operations/create',
-                title: 'Создание расхода',
+                title: 'Создание операции',
                 filePathTemplate: '/templates/pages/operations/create.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
                     new OperationsCreate(this.openNewRoute.bind(this));
-                }
+                },
+                scripts: [
+                    'flatpickr.min.js',
+                    'ru.js'
+                ],
+                styles: [
+                    'flatpickr.min.css',
+                ]
             },
             {
                 route: '/operations/edit',
-                title: 'Редактирование расхода',
+                title: 'Редактирование операции',
                 filePathTemplate: '/templates/pages/operations/edit.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
                     new OperationsEdit(this.openNewRoute.bind(this));
-                }
-            },
+                },
+                scripts: [
+                    'flatpickr.min.js',
+                    'ru.js'
+                ],
+                styles: [
+                    'flatpickr.min.css',
+                ]
+            }
         ];
     }
 
@@ -164,7 +192,6 @@ export class Router {
         if (element) {
             e.preventDefault();
 
-            // проверить изменилось ли это
             const currentRoute = window.location.pathname;
             const url = element.href.replace(window.location.origin, '');
             if (!url || (currentRoute === url.replace('#', '')) || url.startsWith('javascript:void(0)')) {
@@ -175,29 +202,37 @@ export class Router {
         }
     }
 
-    async activateRoute(e, oldRoute = null) {
+    async activateRoute(e = null, oldRoute = null) {
         if (oldRoute) {
             const currentRoute = this.routes.find(item => item.route === oldRoute);
-            // if (currentRoute.scripts && currentRoute.scripts.length > 0) {
-            //     currentRoute.scripts.forEach(script => {
-            //         document.querySelector(`script[src='/js/${script}']`).remove();
-            //     });
-            // }
-            //
-            // if (currentRoute.unload && typeof currentRoute.unload === 'function') {
-            //     currentRoute.unload();
-            // }
+            if (currentRoute.styles && currentRoute.styles.length > 0) {
+                currentRoute.styles.forEach(style => {
+                    document.querySelector(`link[href='/css/${style}']`).remove();
+                });
+            }
+            if (currentRoute.scripts && currentRoute.scripts.length > 0) {
+                currentRoute.scripts.forEach(script => {
+                    document.querySelector(`script[src='/js/${script}']`).remove();
+                });
+            }
+
+            document.querySelectorAll('.flatpickr-calendar').forEach(calendar => calendar.remove());
         }
 
         const urlRoute = window.location.pathname;
         const newRoute = this.routes.find(item => item.route === urlRoute);
 
         if (newRoute) {
-            // if (newRoute.scripts && newRoute.scripts.length > 0) {
-            //     for (const script of newRoute.scripts) {
-            //         await FileUtils.loadPageScript('/js/' + script);
-            //     }
-            // }
+            if (newRoute.styles && newRoute.styles.length > 0) {
+                newRoute.styles.forEach(style => {
+                    FileUtils.loadPageStyle('/css/' + style);
+                });
+            }
+            if (newRoute.scripts && newRoute.scripts.length > 0) {
+                for (const script of newRoute.scripts) {
+                    await FileUtils.loadPageScript('/js/' + script);
+                }
+            }
 
             if (newRoute.useLayout) {
                 const accessToken = AuthUtils.getAuthInfo(AuthUtils.accessTokenKey);
@@ -221,16 +256,15 @@ export class Router {
 
                     this.profileNameElement = document.getElementById('profile-name');
 
-                    if (!this.userName) {
-                        let userInfo = AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey);
-                        if (userInfo) {
-                            userInfo = JSON.parse(userInfo);
-                            if (userInfo.name && userInfo.lastName) {
-                                this.userName = userInfo.name + ' ' + userInfo.lastName;
-                            }
+                    let userInfo = AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey);
+                    if (userInfo) {
+                        userInfo = JSON.parse(userInfo);
+                        if (userInfo.name && userInfo.lastName) {
+                            this.profileNameElement.innerText = userInfo.name + ' ' + userInfo.lastName;
                         }
                     }
-                    this.profileNameElement.innerText = this.userName;
+
+                    await this.initBalance();
 
                     this.activateMenuItem(newRoute);
                 }
@@ -242,9 +276,63 @@ export class Router {
                 newRoute.load();
             }
         } else {
-            console.log('No route found');
             history.pushState({}, '', '/');
             await this.activateRoute();
+        }
+    }
+
+    async initBalance() {
+        const balanceBlock = document.getElementById('balance');
+        const balanceAmount = document.getElementById('balance-amount');
+
+        if (!balanceBlock || !balanceAmount) return;
+
+        try {
+            const result = await HttpUtils.request('/balance');
+            if (result.response && typeof result.response.balance !== 'undefined') {
+                balanceAmount.innerText = result.response.balance.toLocaleString() + '$';
+            }
+        } catch (e) {
+            console.error('Не удалось загрузить баланс');
+        }
+
+        if (!balanceBlock.dataset.listenerAdded) {
+            balanceBlock.dataset.listenerAdded = "true";
+
+            balanceBlock.addEventListener('click', () => {
+                const modalElement = document.getElementById('balance-modal');
+                const inputElement = document.getElementById('balance-input');
+                const saveBtn = document.getElementById('save-balance-btn');
+
+                inputElement.classList.remove('is-invalid');
+
+                const currentBalance = parseFloat(balanceAmount.innerText.replace(/[^0-9.-]+/g, ""));
+                inputElement.value = isNaN(currentBalance) ? 0 : currentBalance;
+
+                const modal = new bootstrap.Modal(modalElement);
+                modal.show();
+
+                saveBtn.onclick = async () => {
+                    const newBalance = Number(inputElement.value);
+                    if (inputElement.value.trim() === '' || isNaN(newBalance)) {
+                        inputElement.classList.add('is-invalid');
+                        return;
+                    } else {
+                        inputElement.classList.remove('is-invalid');
+                    }
+
+                    const updateResult = await HttpUtils.request('/balance', 'PUT', true, {
+                        newBalance: newBalance
+                    });
+
+                    if (updateResult.response && !updateResult.error) {
+                        balanceAmount.innerText = updateResult.response.balance.toLocaleString() + '$';
+                        modal.hide();
+                    } else {
+                        ToastUtils.show('Не удалось обновить баланс. Попробуйте позже.', 'danger');
+                    }
+                };
+            });
         }
     }
 
@@ -256,13 +344,16 @@ export class Router {
         const categoriesBtn = document.getElementById('category');
         const categoriesCollapse = document.getElementById('categories-collapse');
 
-        if (categoriesBtn) {
+        if (categoriesBtn && !categoriesBtn.dataset.listenerAdded) {
+            categoriesBtn.dataset.listenerAdded = 'true';
+
             categoriesBtn.addEventListener('click', () => {
                 document.querySelectorAll('.nav-link').forEach(item => {
-                    if (item.id !== 'category') {
+                    if (item.id !== 'category' && !item.closest('#categories-collapse')) {
                         item.classList.remove('active');
                     }
                 });
+
                 categoriesBtn.classList.add('active');
             });
         }

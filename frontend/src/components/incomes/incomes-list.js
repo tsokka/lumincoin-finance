@@ -1,9 +1,25 @@
 import {HttpUtils} from "../../utils/http-utils";
+import {ToastUtils} from "../../utils/toast-utils";
+import {DeleteModalUtils} from "../../utils/delete-modal-utils";
+import {CategoriesService} from "../../services/categories-service";
+import {CardUtils} from "../../utils/card-utils";
 
 export class IncomesList {
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
+
         this.getIncomes().then();
+
+        DeleteModalUtils.init((id) => {
+            this.deleteCategory(id).then();
+        });
+    }
+
+    async deleteCategory(id) {
+        const success = await CategoriesService.deleteIncome(id, this.openNewRoute);
+        if (success) {
+            await this.getIncomes();
+        }
     }
 
     async getIncomes() {
@@ -13,7 +29,7 @@ export class IncomesList {
         }
 
         if (result.error || !result.response || (result.response && result.response.error)) {
-            return alert('Возникла ошибка при получении списка доходов. Обратитесь в поддержку.');
+            return ToastUtils.show('Не удалось загрузить список доходов. Обратитесь в поддержку.', 'danger');
         }
 
         this.showRecords(result.response);
@@ -21,47 +37,16 @@ export class IncomesList {
 
     showRecords(incomes) {
         const recordsElement = document.getElementById('records');
+        recordsElement.innerHTML = '';
 
         incomes.forEach(income => {
-            const cardContainer = document.createElement('div');
-            cardContainer.className = 'col-12 col-sm-6 col-md-12 col-lg-6 col-xl-4';
-
-            const cardElement = document.createElement('div');
-            cardElement.className = 'card border rounded-3 h-100 border-light-gray';
-
-            const cardBody = document.createElement('div');
-            cardBody.className = 'card-body';
-
-            const cardTitle = document.createElement('h5');
-            cardTitle.className = 'card-title text-dark-purple mb-2 fs-3';
-            cardTitle.innerText = income.title;
-
-            const buttonContainer = document.createElement('div');
-            buttonContainer.className = 'd-flex gap-2';
-
-            const editButton = document.createElement('a');
-            editButton.className = 'btn btn-primary fw-medium';
-            editButton.innerText = 'Редактировать';
-            editButton.href = '/incomes/edit?id=' + income.id;
-
-            const deleteButton = document.createElement('button');
-            deleteButton.className = 'btn btn-danger';
-            deleteButton.innerText = 'Удалить';
-            deleteButton.setAttribute('data-bs-toggle', 'modal');
-            deleteButton.setAttribute('data-bs-target', '#deleteModal');
-            deleteButton.setAttribute('data-id', income.id); // точно надо?
-
-            buttonContainer.appendChild(editButton);
-            buttonContainer.appendChild(deleteButton);
-
-            cardBody.appendChild(cardTitle);
-            cardBody.appendChild(buttonContainer);
-
-            cardElement.appendChild(cardBody);
-
-            cardContainer.appendChild(cardElement);
-
-            recordsElement.appendChild(cardContainer);
+            const card = CardUtils.createCard(
+                income.title,
+                income.id,
+                `/incomes/edit?id=${income.id}`,
+                (id) => this.deleteCategory(id)
+            );
+            recordsElement.appendChild(card);
         });
 
         const addCardContainer = document.createElement('div');

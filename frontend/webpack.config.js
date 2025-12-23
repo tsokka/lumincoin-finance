@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     entry: './src/app.js',
@@ -8,6 +9,7 @@ module.exports = {
     output: {
         filename: 'app.js',
         path: path.resolve(__dirname, 'dist'),
+        publicPath: '/'
     },
     devServer: {
         static: {
@@ -37,6 +39,7 @@ module.exports = {
         ],
     },
     plugins: [
+        new Dotenv(),
         new HtmlWebpackPlugin(
             {
                 template: "./index.html",
@@ -44,11 +47,16 @@ module.exports = {
         new CopyPlugin({
             patterns: [
                 {from: "./src/templates", to: "templates"},
+                {from: "./src/static/images", to: "images"},
                 {from: "./node_modules/bootstrap/dist/css/bootstrap.min.css", to: "css"},
                 {from: "./node_modules/bootstrap-icons/font/bootstrap-icons.min.css", to: "css"},
                 {from: "./node_modules/chart.js/dist/chart.umd.min.js", to: "js"},
                 {from: "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js", to: "js"},
-                {from: "./node_modules/bootstrap-icons/font/fonts", to: "css/fonts"}
+                {from: "./node_modules/bootstrap-icons/font/fonts", to: "css/fonts"},
+                {from: "./node_modules/flatpickr/dist/flatpickr.min.css", to: "css"},
+                {from: "./node_modules/flatpickr/dist/flatpickr.min.js", to: "js"},
+                {from: "./node_modules/flatpickr/dist/l10n/ru.js", to: "js"},
+                {from: "./.env", to: "./"},
             ],
         }),
     ],

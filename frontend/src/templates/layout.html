@@ -51,9 +51,9 @@
                     </ul>
                 </div>
             </li>
-            <li class="balance mt-auto d-flex flex-row fw-medium gap-2">
+            <li class="balance mt-auto d-flex flex-row fw-medium gap-2" id="balance" style="cursor: pointer;">
                 <div>Баланс:</div>
-                <a class="link-blue text-decoration-none">500$</a>
+                <a class="link-blue text-decoration-none" id="balance-amount"></a>
             </li>
         </ul>
 
@@ -62,7 +62,7 @@
         <div class="dropdown pt-1 px-3 pb-5">
             <a href="#"
                class="user-panel d-flex align-items-center link-body-emphasis text-decoration-none gap-3 fs-8 text-dark-blue rounded-2"
-               id="userDropdown"
+               id="user-dropdown"
                data-bs-toggle="dropdown"
                aria-expanded="false">
                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,3 +80,29 @@
 
     <main class="flex-grow-1 px-3 pb-5 p-md-5 mx-md-2 overflow-auto" id="content-layout"></main>
 </div>
+
+<div class="modal fade" id="balance-modal" tabindex="-1" aria-labelledby="balanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="balance-modal-label">Изменить баланс</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="balance-input" class="col-form-label">Новый баланс:</label>
+                        <input type="number" class="form-control" id="balance-input" placeholder="Введите сумму...">
+                        <span class="invalid-feedback">Пожалуйста, введите корректное число</span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-success" id="save-balance-btn">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container" style="z-index: 11;"></div>

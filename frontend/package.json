@@ -5,21 +5,25 @@
   "main": "webpack.config.js",
   "scripts": {
     "build": "webpack",
-    "dev": "webpack serve --open"
+    "dev": "webpack serve --open",
+    "http-server": "http-server ./dist --proxy http://localhost:8080?"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@coreui/coreui": "^5.4.3"
-  },
-  "devDependencies": {
+    "@coreui/coreui": "^5.4.3",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
     "chart.js": "^4.5.1",
+    "flatpickr": "^4.6.13"
+  },
+  "devDependencies": {
     "copy-webpack-plugin": "^13.0.1",
     "css-loader": "^7.1.2",
+    "dotenv-webpack": "^8.1.1",
     "html-webpack-plugin": "^5.6.5",
+    "http-server": "^14.1.1",
     "sass": "^1.94.1",
     "sass-loader": "^16.0.6",
     "style-loader": "^4.0.0",
