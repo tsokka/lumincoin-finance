@@ -2,38 +2,38 @@
     <h1 class="text-dark-blue pt-md-5 pb-md-3 py-lg-5 mt-md-1 mb-md-2 text-center text-lg-start">Главная</h1>
 
     <div class="mt-3 mt-md-0 mb-xxl-5 pb-md-5 d-xl-flex text-center gap-3">
-        <input type="radio" class="btn-check" name="dateFilter" id="todayBtn" checked>
-        <label class="btn btn-outline-secondary mb-3 mb-xxl-0 fw-medium" for="todayBtn"
+        <input type="radio" class="btn-check" name="dateFilter" id="today-btn" checked>
+        <label class="btn btn-outline-secondary mb-3 mb-xxl-0 fw-medium" for="today-btn"
                style="width: 100px; height: 37px">Сегодня</label>
 
-        <input type="radio" class="btn-check" name="dateFilter" id="weekBtn">
-        <label class="btn btn-outline-secondary mb-3 mb-xxl-0 fw-medium" for="weekBtn"
+        <input type="radio" class="btn-check" name="dateFilter" id="week-btn">
+        <label class="btn btn-outline-secondary mb-3 mb-xxl-0 fw-medium" for="week-btn"
                style="width: 100px; height: 37px">Неделя</label>
 
-        <input type="radio" class="btn-check" name="dateFilter" id="monthBtn">
-        <label class="btn btn-outline-secondary mb-3 mb-xxl-0 fw-medium" for="monthBtn"
+        <input type="radio" class="btn-check" name="dateFilter" id="month-btn">
+        <label class="btn btn-outline-secondary mb-3 mb-xxl-0 fw-medium" for="month-btn"
                style="width: 100px; height: 37px">Месяц</label>
 
-        <input type="radio" class="btn-check" name="dateFilter" id="yearBtn">
-        <label class="btn btn-outline-secondary mb-3 mb-xxl-0 fw-medium" for="yearBtn"
+        <input type="radio" class="btn-check" name="dateFilter" id="year-btn">
+        <label class="btn btn-outline-secondary mb-3 mb-xxl-0 fw-medium" for="year-btn"
                style="width: 100px; height: 37px">Год</label>
 
-        <input type="radio" class="btn-check" name="dateFilter" id="allBtn">
-        <label class="btn btn-outline-secondary mb-3 mb-xxl-0 fw-medium" for="allBtn"
+        <input type="radio" class="btn-check" name="dateFilter" id="all-btn">
+        <label class="btn btn-outline-secondary mb-3 mb-xxl-0 fw-medium" for="all-btn"
                style="width: 100px; height: 37px">Все</label>
 
-        <input type="radio" class="btn-check" name="dateFilter" id="intervalBtn">
-        <label class="btn btn-outline-secondary mb-3 mb-xxl-0 fw-medium" for="intervalBtn"
+        <input type="radio" class="btn-check" name="dateFilter" id="interval-btn">
+        <label class="btn btn-outline-secondary mb-3 mb-xxl-0 fw-medium" for="interval-btn"
                style="width: 100px; height: 37px">Интервал</label>
 
         <div>
             <span class="text-black fw-medium">с</span>
-            <button type="button" class="btn btn-link text-secondary fw-medium px-3">Дата</button>
-            <input type="date" id="dateFromInput" style="display: none;">
+            <button type="button" id="date-from-btn" class="btn btn-link text-secondary fw-medium px-3">Дата</button>
+            <input type="date" id="date-from-input" style="display: none;">
 
             <span class="text-black fw-medium ps-2">по</span>
-            <button type="button" class="btn btn-link text-secondary fw-medium ps-3">Дата</button>
-            <input type="date" id="dateToInput" style="display: none;">
+            <button type="button" id="date-to-btn" class="btn btn-link text-secondary fw-medium ps-3">Дата</button>
+            <input type="date" id="date-to-input" style="display: none;">
         </div>
     </div>
 
@@ -49,10 +49,10 @@
 
         <div class="row pb-5">
             <div class="col-md-6 border-end d-flex justify-content-center px-0 income-chart pb-4 pb-md-0">
-                <canvas id="incomeChart" width="437" height="414"></canvas>
+                <canvas id="income-chart" width="437" height="414"></canvas>
             </div>
             <div class="col-md-6 d-flex justify-content-center px-0 expense-chart">
-                <canvas id="expenseChart" width="437" height="414"></canvas>
+                <canvas id="expense-chart" width="437" height="414"></canvas>
             </div>
         </div>
     </div>

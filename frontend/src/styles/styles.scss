@@ -109,6 +109,10 @@ body {
   border-color: #CED4DA !important;
 }
 
+.charts-wrapper {
+  overflow-x: hidden;
+}
+
 
 @media (min-width: 768px) {
   #sidebar.offcanvas {
@@ -135,14 +139,14 @@ body {
     display: contents;
   }
 
-  #incomeChart, #expenseChart {
+  #income-chart, #expense-chart {
     width: 300px !important;
     height: 280px !important;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
-  #incomeChart, #expenseChart {
+  #income-chart, #expense-chart {
     width: 350px !important;
     height: 330px !important;
   }
