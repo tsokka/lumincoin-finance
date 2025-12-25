@@ -44,6 +44,20 @@ export class Dashboard {
     }
 
     initCharts() {
+        const fixedLegendPlugin = {
+            id: 'fixedLegendHeight',
+            beforeInit(chart) {
+                const originalFit = chart.legend.fit;
+                chart.legend.fit = function fit() {
+                    originalFit.bind(chart.legend)();
+
+                    if (this.height < 70) {
+                        this.height = 70;
+                    }
+                };
+            }
+        };
+
         const incomeCtx = document.getElementById('income-chart').getContext('2d');
         this.incomeChart = new Chart(incomeCtx, {
             type: 'pie',
@@ -76,16 +90,7 @@ export class Dashboard {
                     }
                 }
             },
-            plugins: [{
-                id: 'legendMargin',
-                beforeInit(chart) {
-                    const originalFit = chart.legend.fit;
-                    chart.legend.fit = function fit() {
-                        originalFit.bind(chart.legend)();
-                        this.height += 30;
-                    };
-                }
-            }]
+            plugins: [fixedLegendPlugin]
         });
 
         const expenseCtx = document.getElementById('expense-chart').getContext('2d');
@@ -120,16 +125,7 @@ export class Dashboard {
                     }
                 }
             },
-            plugins: [{
-                id: 'legendMargin',
-                beforeInit(chart) {
-                    const originalFit = chart.legend.fit;
-                    chart.legend.fit = function fit() {
-                        originalFit.bind(chart.legend)();
-                        this.height += 30;
-                    };
-                }
-            }]
+            plugins: [fixedLegendPlugin]
         });
     }
 

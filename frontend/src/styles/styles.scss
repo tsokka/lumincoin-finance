@@ -109,6 +109,10 @@ body {
   border-color: #CED4DA !important;
 }
 
+.charts-wrapper {
+  overflow-x: hidden;
+}
+
 
 @media (min-width: 768px) {
   #sidebar.offcanvas {
