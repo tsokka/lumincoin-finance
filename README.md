@@ -82,5 +82,5 @@ The production build will be generated in the dist folder.
 Coming soon
 
 ## 👤 Author
-Frontend: Marina Kolbina
+Frontend: Marina Kolbina  
 GitHub: https://github.com/tsokka
