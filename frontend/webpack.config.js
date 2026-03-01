@@ -39,7 +39,10 @@ module.exports = {
         ],
     },
     plugins: [
-        new Dotenv(),
+        new Dotenv({
+            systemvars: true,
+            silent: true,
+        }),
         new HtmlWebpackPlugin(
             {
                 template: "./index.html",
@@ -56,7 +59,6 @@ module.exports = {
                 {from: "./node_modules/flatpickr/dist/flatpickr.min.css", to: "css"},
                 {from: "./node_modules/flatpickr/dist/flatpickr.min.js", to: "js"},
                 {from: "./node_modules/flatpickr/dist/l10n/ru.js", to: "js"},
-                {from: "./.env", to: "./"},
             ],
         }),
     ],
