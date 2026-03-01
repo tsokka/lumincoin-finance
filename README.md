@@ -50,9 +50,11 @@ In this project I focused on the frontend and API integration.
 
 ### Backend
 
+```bash
 cd backend
 npm install
 npm run dev
+```
 
 The backend will start on http://localhost:3000 (or the port defined in your .env file).
 
