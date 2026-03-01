@@ -78,9 +78,9 @@ npm run build
 
 The production build will be generated in the dist folder.
 
-📸 Screenshots
+## 📸 Screenshots
 Coming soon
 
-👤 Author
+## 👤 Author
 Frontend: Marina Kolbina
 GitHub: https://github.com/tsokka
