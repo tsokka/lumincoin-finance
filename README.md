@@ -79,7 +79,22 @@ npm run build
 The production build will be generated in the dist folder.
 
 ## 📸 Screenshots
-Coming soon
+
+### Login
+
+![Login screen](https://github.com/tsokka/lumincoin-finance/blob/main/frontend/src/static/images/screenshot-login.png?raw=true)
+
+### Dashboard
+
+![Dashboard](https://github.com/tsokka/lumincoin-finance/blob/main/frontend/src/static/images/screenshot-dashboard.png?raw=true)
+
+### Operations
+
+![Operations list](https://github.com/tsokka/lumincoin-finance/blob/main/frontend/src/static/images/screenshot-operations.png?raw=true)
+
+### Edit category
+
+![Edit category](https://github.com/tsokka/lumincoin-finance/blob/main/frontend/src/static/images/screenshot-edit-category.png?raw=true)
 
 ## 👤 Author
 Frontend: Marina Kolbina  
