@@ -1,71 +1,86 @@
-# Lumincoin Finance
+# 💸 Lumincoin Finance
 
-Веб-приложение для учёта личных финансов с аутентификацией, 
-управлением категориями доходов/расходов и визуализацией данных.
+Lumincoin Finance is a single‑page web application for tracking personal income and expenses.  
+It was developed as part of a frontend web development course.  
+I implemented the frontend SPA and integrated it with the provided Node.js API backend.
 
-## 🖥 Демо
-[Ссылка на демо, если есть]
+## 🖥 Demo
 
-## 📸 Скриншоты
-[Скриншот дашборда]
-[Скриншот списка операций]
+- Frontend: https://lumincoin-finance.vercel.app/  
+- Backend API: https://lumincoin-finance.onrender.com/
 
-## 🛠 Технологии
+> Note: The backend is hosted on a free tier, so the first request after a period of inactivity may take a few seconds while the service wakes up.
+
+## ✨ Features
+
+- User registration and authentication (sign up / sign in / sign out)
+- Dashboard with charts for income and expenses over time
+- Categories management for incomes and expenses
+- CRUD operations for financial transactions
+- Date range filters
+- Responsive layout with an off‑canvas sidebar
+
+## 🛠 Tech Stack
+
 ### Frontend
-- JavaScript (ES6+), Webpack
-- Bootstrap 5, SASS
-- Chart.js (графики)
-- Flatpickr (выбор дат)
-- SPA с кастомным роутером
+
+- JavaScript (ES6+)
+- Webpack bundler
+- Bootstrap 5, custom SCSS styles
+- Chart.js for visualizing statistics
+- Flatpickr for date selection
+- Custom client‑side router (SPA architecture)
 
 ### Backend
+
+The backend is a Node.js API provided as part of the course template.  
+In this project I focused on the frontend and API integration.
+
 - Node.js, Express
-- JWT-аутентификация, bcrypt
-- LowDB (файловая БД)
-- Joi (валидация)
+- JWT‑based authentication, bcrypt for password hashing
+- LowDB file‑based storage
+- Joi‑based request validation
 
-## ⚙️ Установка и запуск
+## ⚙️ Running the Project Locally
 
-### Требования
+### Prerequisites
+
 - Node.js 16+
+- npm
 
 ### Backend
+
+```bash
 cd backend
 npm install
-npm start
+npm run dev
+```
 
-### Frontend
+The backend will start on http://localhost:3000 (or the port defined in your .env file).
+
+### Frontend (dev server)
+
+``` bash
 cd frontend
 npm install
 npm run dev
+```
 
-## 📁 Структура проекта
-lumincoin-finance/
-├── frontend/
-│   ├── src/
-│   │   ├── components/    # UI-компоненты
-│   │   ├── services/      # API-сервисы
-│   │   ├── utils/         # Утилиты
-│   │   ├── router.js      # SPA-роутер
-│   │   ├── templates/     # HTML-шаблоны
-│   │   └── styles/        # SCSS-стили
-│   ├── package.json
-│   └── webpack.config.js
-├── backend/
-│   ├── controllers/       # Контроллеры
-│   ├── routes/            # API-маршруты
-│   ├── models/            # Модели данных
-│   ├── normalizers/       # Нормализация
-│   └── package.json
-└── .gitignore
+The Webpack dev server will start on http://localhost:9000.
 
-## 📌 Реализованные функции
-- Регистрация и авторизация (JWT + refresh tokens)
-- CRUD категорий доходов и расходов
-- CRUD финансовых операций
-- Дашборд с графиками (Chart.js)
-- Фильтрация по датам
-- Адаптивная вёрстка с offcanvas sidebar
+### Frontend (production build)
 
-## 👤 Автор
-[Marina Kolbina] — Frontend Developer
+``` bash
+cd frontend
+npm install
+npm run build
+```
+
+The production build will be generated in the dist folder.
+
+## 📸 Screenshots
+Coming soon
+
+## 👤 Author
+Frontend: Marina Kolbina  
+GitHub: https://github.com/tsokka
