@@ -58,18 +58,21 @@ The backend will start on http://localhost:3000 (or the port defined in your .en
 
 ### Frontend (dev server)
 
-bash
+``` bash
 cd frontend
 npm install
 npm run dev
+```
+
 The Webpack dev server will start on http://localhost:9000.
 
-###Frontend (production build)
+### Frontend (production build)
 
-bash
+``` bash
 cd frontend
 npm install
 npm run build
+```
 
 The production build will be generated in the dist folder.
 
