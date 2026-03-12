@@ -48,6 +48,10 @@ In this project I focused on the frontend and API integration.
 - Node.js 16+
 - npm
 
+Environment Variables
+
+Create a `.env` file in the `frontend` folder based on `.env.example`.
+
 ### Backend
 
 ```bash
