@@ -1,13 +1,18 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require("copy-webpack-plugin");
-const Dotenv = require('dotenv-webpack');
+import path from "node:path";
+import {fileURLToPath} from "node:url";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import CopyPlugin from "copy-webpack-plugin";
+import Dotenv from "dotenv-webpack";
 
-module.exports = {
-    entry: './src/app.js',
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default {
+    entry: './src/app.ts',
+    devtool: 'inline-source-map',
     mode: 'development',
     output: {
-        filename: 'app.js',
+        filename: 'main.js',
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/'
     },
@@ -21,6 +26,11 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.tsx?$/,
+                use: "ts-loader",
+                exclude: /node_modules/,
+            },
             {
                 test: /\.scss$/i,
                 use: [
@@ -37,6 +47,9 @@ module.exports = {
                 }
             }
         ],
+    },
+    resolve: {
+        extensions: [".tsx", ".ts", ".js"],
     },
     plugins: [
         new Dotenv({

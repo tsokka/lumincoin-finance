@@ -1,0 +1,1 @@
+export type OpenNewRoute = (url: string) => void;
